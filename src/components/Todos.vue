@@ -6,7 +6,7 @@
 		>
 			<TodoItem
 				v-bind:todo="todo"
-				@deleteTodo="$emit('deleteTodo', todo.id)"
+				@delete-todo="$emit('delete-todo', todo.id)"
 			/>
 		</div>
 	</div>

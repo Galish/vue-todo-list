@@ -11,7 +11,7 @@
 
 			<button
 				class="deleteButton"
-				@click="$emit('deleteTodo')"
+				@click="$emit('delete-todo')"
 			>
 				x
 			</button>
@@ -45,5 +45,6 @@ export default {
 		border-radius: 50%;
 		cursor: pointer;
 		float: right;
+		outline: none;
 	}
 </style>
