@@ -9,18 +9,16 @@
 				v-model="title"
 			/>
 
-			<button
+			<input
 				class="button"
 				type="submit"
-			>
-				Submit
-			</button>
+			/>
 		</form>
 	</div>
 </template>
 
 <script>
-import { v4 as uuidv4 } from 'uuid'
+import compose from 'compose-function'
 
 export default {
 	name: 'AddTodo',
@@ -33,17 +31,13 @@ export default {
 		addTodo(e) {
 			e.preventDefault()
 
-			if (this.title) {
-				return
-			}
+			const clearInput = () => this.title = ''
+			const createTodo = title => ({ title, completed: false })
+			const emit = todo => this.$emit('add-todo', todo)
+			const trim = string => string.trim()
 
-			const newTodo = {
-				id: uuidv4(),
-				title: this.title
-			}
-
-			this.$emit('add-todo', newTodo)
-			this.title = ''
+			const title = trim(this.title)
+			title !== '' && compose(clearInput, emit, createTodo)(title)
 		}
 	}
 }

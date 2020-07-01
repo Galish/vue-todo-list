@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "compose-function": "^3.0.3",
     "core-js": "^3.6.5",
     "uuid": "^8.2.0",
     "vue": "^2.6.11"

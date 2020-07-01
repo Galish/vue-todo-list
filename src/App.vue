@@ -17,6 +17,7 @@
 import AddTodo from './components/AddTodo.vue'
 import Header from './components/Header.vue'
 import Todos from './components/Todos.vue'
+import actions from './common/actions'
 
 export default {
 	name: 'App',
@@ -27,32 +28,29 @@ export default {
 	},
 	data() {
 		return {
-			todos: [
-				{
-					id: 1,
-					title: 'Todo one',
-					completed: false
-				},
-				{
-					id: 2,
-					title: 'Todo two',
-					completed: true
-				},
-				{
-					id: 3,
-					title: 'Todo tree',
-					completed: false
-				}
-			]
+			todos: []
 		}
 	},
 	methods: {
-		addTodo(newTodo) {
-			this.todos.push(newTodo)
+		async addTodo(newTodo) {
+			const id = await actions.addTodo(newTodo)
+			const addItemToArray = array => item => id => (
+				array.push({ ...item, id })
+			)
+
+			console.log({ newTodo, id });
+
+			id !== null && addItemToArray(this.todos)(newTodo)(id)
 		},
 		deleteTodo(id) {
+			actions.deleteTodo(id)
 			this.todos = this.todos.filter(todo => todo.id !== id)
 		}
+	},
+	async created() {
+		const todos = await actions.getTodos()
+
+		this.todos = todos
 	}
 }
 </script>
