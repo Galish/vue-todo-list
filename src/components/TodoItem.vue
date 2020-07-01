@@ -9,6 +9,13 @@
 				v-model="todo.completed"
 			/>
 
+			<button
+				class="deleteButton"
+				@click="$emit('deleteTodo')"
+			>
+				x
+			</button>
+
 			{{todo.title}}
 		</p>
 	</div>
@@ -30,7 +37,7 @@ export default {
 	.is-complete {
 		text-decoration: line-through;
 	}
-	.del {
+	.deleteButton {
 		background: #ff0000;
 		color: #fff;
 		border: none;
