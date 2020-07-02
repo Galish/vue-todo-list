@@ -2,55 +2,21 @@
 	<div id="app">
 		<Header />
 
-		<AddTodo
-			@add-todo="addTodo"
-		/>
+		<Navigation />
 
-		<Todos
-			v-bind:todos="todos"
-			@delete-todo="deleteTodo"
-		/>
+		<router-view />
 	</div>
 </template>
 
 <script>
-import AddTodo from './components/AddTodo.vue'
 import Header from './components/Header.vue'
-import Todos from './components/Todos.vue'
-import actions from './common/actions'
+import Navigation from './components/Navigation.vue'
 
 export default {
 	name: 'App',
 	components: {
-		AddTodo,
 		Header,
-		Todos
-	},
-	data() {
-		return {
-			todos: []
-		}
-	},
-	methods: {
-		async addTodo(newTodo) {
-			const id = await actions.addTodo(newTodo)
-			const addItemToArray = array => item => id => (
-				array.push({ ...item, id })
-			)
-
-			console.log({ newTodo, id });
-
-			id !== null && addItemToArray(this.todos)(newTodo)(id)
-		},
-		deleteTodo(id) {
-			actions.deleteTodo(id)
-			this.todos = this.todos.filter(todo => todo.id !== id)
-		}
-	},
-	async created() {
-		const todos = await actions.getTodos()
-
-		this.todos = todos
+		Navigation
 	}
 }
 </script>
@@ -65,6 +31,10 @@ export default {
 body {
 	font-family: Avenir, Helvetica, Arial, sans-serif;
 	line-height: 1.4;
+}
+
+h1 {
+	text-align: center;
 }
 
 button {
